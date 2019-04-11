@@ -1,0 +1,11 @@
+/Users/carolynn/dev/C-Sharp/BlackJack/bin/Debug/netcoreapp2.2/BlackJack.deps.json
+/Users/carolynn/dev/C-Sharp/BlackJack/bin/Debug/netcoreapp2.2/BlackJack.runtimeconfig.json
+/Users/carolynn/dev/C-Sharp/BlackJack/bin/Debug/netcoreapp2.2/BlackJack.runtimeconfig.dev.json
+/Users/carolynn/dev/C-Sharp/BlackJack/bin/Debug/netcoreapp2.2/BlackJack.dll
+/Users/carolynn/dev/C-Sharp/BlackJack/bin/Debug/netcoreapp2.2/BlackJack.pdb
+/Users/carolynn/dev/C-Sharp/BlackJack/obj/Debug/netcoreapp2.2/BlackJack.csprojAssemblyReference.cache
+/Users/carolynn/dev/C-Sharp/BlackJack/obj/Debug/netcoreapp2.2/BlackJack.csproj.CoreCompileInputs.cache
+/Users/carolynn/dev/C-Sharp/BlackJack/obj/Debug/netcoreapp2.2/BlackJack.AssemblyInfoInputs.cache
+/Users/carolynn/dev/C-Sharp/BlackJack/obj/Debug/netcoreapp2.2/BlackJack.AssemblyInfo.cs
+/Users/carolynn/dev/C-Sharp/BlackJack/obj/Debug/netcoreapp2.2/BlackJack.dll
+/Users/carolynn/dev/C-Sharp/BlackJack/obj/Debug/netcoreapp2.2/BlackJack.pdb
