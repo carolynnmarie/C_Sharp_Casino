@@ -20,7 +20,11 @@ namespace BlackJack.Cards{
             }
         }
 
-        public void shuffle(){
+        public Deck(List<Card> deck){
+            this.deck = deck;
+        }
+
+        public void Shuffle(){
             int size = deck.Count;
             Random random = new Random();
             for(int i = 0; i<size; i++){
@@ -32,15 +36,50 @@ namespace BlackJack.Cards{
             }
         }
 
-        public string printDeck(){
+        public Card DrawCard(){
+            Card card = deck[deck.Count-1];
+            deck.Remove(card);
+            return card;
+        }
+
+        public List<Card> DealCards(int numDealt){
+            List<Card> list = new List<Card>();
+            for(int i = 0; i<numDealt; i++){
+                list.Add(deck[deck.Count-1-i]);
+            }
+            foreach(Card card in list){
+                deck.Remove(card);
+            }
+            return list;
+        }
+
+        public bool RemoveCard(Card card){
+            bool remCard = false;
+            if(deck.Contains(card)){
+                deck.Remove(card);
+                remCard = true;
+            }
+            return remCard;
+        }
+
+        public void ClearDeck(){
+            deck.Clear();
+        }
+
+        public void AddCard(Card card){
+            if(!deck.Contains(card)){
+
+            }
+        }
+
+        public string PrintDeck(){
             List<string> deckString = new List<string>();
             foreach(Card card in deck){
-                int r = (int)card.rank;
-                //string s = ;
-                string x = r + card.suit.ToString();
+                string x = card.ToString();
                 deckString.Add(x);
             }
             return string.Join(", ",deckString);
         }
+
     }
 }

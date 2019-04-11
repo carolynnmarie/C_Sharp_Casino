@@ -7,9 +7,9 @@ namespace BlackJack{
 
         static void Main(string[] args){
             Deck deck = new Deck();
-            Console.WriteLine(deck.printDeck());
-            deck.shuffle();
-            Console.WriteLine(deck.printDeck());
+            //Console.WriteLine(deck.PrintDeck());
+            deck.Shuffle();
+            Console.WriteLine(deck.PrintDeck());
         }
     }
 }
