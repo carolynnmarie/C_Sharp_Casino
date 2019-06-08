@@ -68,8 +68,15 @@ namespace BlackJack.Cards{
 
         public void AddCard(Card card){
             if(!deck.Contains(card)){
-
+                deck.Add(card);
             }
+        }
+
+        public boolean ContainsCard(Card card){
+            if(deck.Contains(card)){
+                return true;
+            }
+            return false;
         }
 
         public string PrintDeck(){
@@ -79,6 +86,10 @@ namespace BlackJack.Cards{
                 deckString.Add(x);
             }
             return string.Join(", ",deckString);
+        }
+
+        public int DeckSize(){
+            return this.deck.Size();
         }
 
     }
