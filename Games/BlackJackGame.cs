@@ -17,19 +17,22 @@ namespace BlackJack.Games{
             this.dealer = new Person("dealer");
             this.houseDeck = new Deck();
             houseDeck.Shuffle();
-            this.playerHand = houseDeck.DealCards(2);
-            this.dealerHand = houseDeck.DealCards(2);
+            this.playerHand = new List<Card>();
+            this.dealerHand = new List<Card>();
         }
 
         public void Start(){
-
+            this.playerHand = houseDeck.DealCards(2);
+            this.dealerHand = houseDeck.DealCards(2);
+            PlaceBet();
+            Engine();
         }
 
-        public void Engine(){
-
+        public void PlaceBet(){            
+            this.player.chips -= GetBetAmount();
         }
 
-        public int GetBetAmount(){
+        private int GetBetAmount(){
             int answer = 0;
             Console.WriteLine("Please enter the amount you would like to bet.  Minimum bet is 5 chips.");
             do{
@@ -42,7 +45,7 @@ namespace BlackJack.Games{
             return answer;
         }
 
-        public void PlaceBet(int bet){
+        public void Engine(){
 
         }
 
@@ -68,7 +71,13 @@ namespace BlackJack.Games{
             return count;
         }
 
+        private void Hit(List<Card> hand){
+            hand.Add(houseDeck.DealCards(1));
+        }
+
         public void End(){
+            this.houseDeck = new Deck();
+            Console.WriteLine("Would you like to play again? y/n");
 
         }
     }
