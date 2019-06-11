@@ -9,7 +9,8 @@ namespace BlackJack{
             Deck deck = new Deck();
             //Console.WriteLine(deck.PrintDeck());
             deck.Shuffle();
-            Console.WriteLine(deck.PrintDeck());
+            //Console.WriteLine(deck.PrintDeck());
+            Console.WriteLine("\uD83C\uDCA1");
         }
     }
 }

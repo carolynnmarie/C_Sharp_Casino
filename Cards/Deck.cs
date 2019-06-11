@@ -72,7 +72,7 @@ namespace BlackJack.Cards{
             }
         }
 
-        public boolean ContainsCard(Card card){
+        public bool ContainsCard(Card card){
             if(deck.Contains(card)){
                 return true;
             }
@@ -88,9 +88,11 @@ namespace BlackJack.Cards{
             return string.Join(", ",deckString);
         }
 
-        public int DeckSize(){
-            return this.deck.Size();
-        }
+        // public int DeckSize(){
+        //     return this.deck.Size();
+        // }
 
+        
+        
     }
 }

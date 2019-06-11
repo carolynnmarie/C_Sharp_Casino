@@ -5,9 +5,9 @@ namespace BlackJack {
     
     public class Person{
 
-        string name {get;set;}
-        int chips {get;set;}
-        ScoreBoard gameScores {get;set;}
+        public string name {get;set;}
+        public int chips {get;set;}
+        public ScoreBoard gameScores {get;set;}
         
 
         public Person(string name){

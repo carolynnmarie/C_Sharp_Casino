@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using BlackJack.Cards;
 using BlackJack;
 
@@ -52,7 +53,7 @@ namespace BlackJack.Games{
         public int DetermineHandValue(List<Card> hand){
             int handValue = 0;
             foreach(Card card in hand){
-                handValue += card.rank;
+                handValue += (int)card.rank;
             }
             int aces = countAces(hand);
             if(aces == 1 && handValue <= 11){
@@ -64,15 +65,16 @@ namespace BlackJack.Games{
         private int countAces(List<Card> hand){
             int count = 0;
             foreach (var card in hand){
-                if (card.rank == 1){
+                if ((int)card.rank == 1){
                     count++;
                 }
             }
             return count;
         }
 
-        private void Hit(List<Card> hand){
+        private List<Card> Hit(List<Card> hand){
             hand.Add(houseDeck.DealCards(1));
+            return hand;
         }
 
         public void End(){
