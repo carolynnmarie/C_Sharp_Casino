@@ -25,12 +25,28 @@ namespace BlackJack.Games{
         public void Start(){
             this.playerHand = houseDeck.DealCards(2);
             this.dealerHand = houseDeck.DealCards(2);
-            PlaceBet();
-            Engine();
+            Console.WriteLine("Welcome to BlackJack!")
+            int bet = PlaceBet();
+            if(bet > 0){
+                Engine();
+            }            
         }
 
-        public void PlaceBet(){            
-            this.player.chips -= GetBetAmount();
+        public int PlaceBet(){  
+            int bet = 0;  
+            do{
+            bet = GetBetAmount(); 
+            if(bet <= player.chips.count){
+                this.player.chips -= bet
+            } else if (bet > player.chips.count && player.chips.count > 0) {
+                Console.WriteLine("Insufficient funds. Your total chip amount is " + player.chips.count)
+            } else if (player.chips.count == 0){
+                Console.WriteLine("Out of funds.")
+                GoodBye();
+                break;
+            }
+            } while(bet == 0);
+            return bet;
         }
 
         private int GetBetAmount(){
@@ -47,6 +63,37 @@ namespace BlackJack.Games{
         }
 
         public void Engine(){
+            int pTotal = PlayerTurn();
+        }
+
+        private int PlayerTurn(){
+            int value = DetermineHandValue(playerHand);
+            StringBuilder builder = new StringBuilder();
+            do{
+                builder.Append("Your cards are: ");
+                foreach(Card card in playerHand){
+                    builder.Append(card.ToString())
+                            .Append(" ");
+                }
+                builder.Append("for a total of ")
+                        .Append(value)
+                        .Append(". Would you like to hit or stay?");
+                Console.WriteLine(builder.ToString());
+                string answer = Console.ReadLine();
+                if(answer == "hit"){
+                    playerHand = Hit(playerHand);
+                    value = DetermineHandValue(playerHand)
+                    Console.WriteLine("Your new card is " + playerHand[playerHand.count-1].ToString() 
+                        + ". Your new total is " + value + ".");
+                } else {
+                    break;
+                };
+            } while(value<21);
+            return value;
+        }
+
+        public int dealerTurn(){
+            int value = DetermineHandValue(dealerHand);
 
         }
 
@@ -77,10 +124,14 @@ namespace BlackJack.Games{
             return hand;
         }
 
+
         public void End(){
             this.houseDeck = new Deck();
             Console.WriteLine("Would you like to play again? y/n");
+        }
 
+        public void GoodBye(){
+            Console.WriteLine("Returning to Main Menu.")
         }
     }
     
