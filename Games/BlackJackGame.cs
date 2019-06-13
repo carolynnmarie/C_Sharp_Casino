@@ -9,7 +9,6 @@ namespace BlackJack.Games{
     public class BlackJackGame {
 
         public Person player {get;set;}
-        public Person dealer {get;set;}
         public Deck houseDeck {get;set;}
         public List<Card> dealerHand {get;set;}
         public List<Card> playerHand {get;set;}
@@ -17,7 +16,6 @@ namespace BlackJack.Games{
 
         public BlackJackGame(Person player){
             this.player = player;
-            this.dealer = new Person("dealer");
             this.houseDeck = new Deck();
             houseDeck.Shuffle();
             this.playerHand = new List<Card>();
