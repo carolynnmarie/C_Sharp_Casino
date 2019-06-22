@@ -52,14 +52,25 @@ namespace BlackJack.Games{
             do{            
                 Console.WriteLine("Your hand: " + currentHand + "\nWhat rank do you want to ask for?");
                 bool x = Int32.TryParse(Console.ReadLine(),out answer);
+                List fishes = new List(Card);
                 if(x){
                     foreach(Card dCard in dealerHand){
                         if(((int)dCard.rank == answer){
-                            
+                            Console.WriteLine("Dealer has a " + dCard.ToString());
+                            fishes.Add(dCard);
+                        } else {
+                            Console.WriteLine("Dealer has no " + answer "s. Go Fish!");
+                            playerHand = GoFish(playerHand);
                         }
                     }
-                                                          
-                //*Enter game logic here*
+                    if(fishes.Count != 0){
+                        foreach(Card card in fishes){
+                            dealerHand.Remove(card);
+                            playerHand.Add(card);                            
+                        }
+                    } 
+                                            
+                //*Enter rest of game logic here*
                 //append new card(s) to currentHand when added
                 } else {
                     Console.WriteLine("Invalid input.")
@@ -72,7 +83,9 @@ namespace BlackJack.Games{
 
         }
 
+        
         public List<Card> GoFish(List<Card> hand){
+        //enter logic
             return hand;
         }
 
