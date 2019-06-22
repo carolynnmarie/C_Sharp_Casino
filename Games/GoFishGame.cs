@@ -43,16 +43,24 @@ namespace BlackJack.Games{
         }
 
         public void PlayerTurn(){
-            string currentHand = "";
+            StringBuilder currentHand = new StringBuilder();
+            foreach (Card card in playerHand){
+                currentHand.append(card.ToString())
+                           .append(" ");
+            }
             int answer = 0;
-            do{
-                foreach (Card card in playerHand){
-                    currentHand += card.ToString() + " ";
-                }
+            do{            
                 Console.WriteLine("Your hand: " + currentHand + "\nWhat rank do you want to ask for?");
                 bool x = Int32.TryParse(Console.ReadLine(),out answer);
                 if(x){
+                    foreach(Card dCard in dealerHand){
+                        if(((int)dCard.rank == answer){
+                            
+                        }
+                    }
+                                                          
                 //*Enter game logic here*
+                //append new card(s) to currentHand when added
                 } else {
                     Console.WriteLine("Invalid input.")
                 }
