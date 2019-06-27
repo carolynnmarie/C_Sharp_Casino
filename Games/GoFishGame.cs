@@ -64,15 +64,18 @@ namespace BlackJack.Games{
                         } 
                     }
                     if(fishes.Count != 0){
-                        dealerHand.Remove()
+                        foreach(Card card in fishes){
+                            dealerHand.Remove();
+                        }                       
                     }
-
+                    if(!hasCard){                        
+                        playerHand = GoFish(playerHand);
+                        if((int)playerHand[playerHand.Count-1].rank == answer){
+                            hasCard = true;
+                        }
+                    }
                 }
             } while(hasCard);
-            
-        }
-
-        private string TransferCards(int answer){
             
         }
 
