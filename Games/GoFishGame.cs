@@ -44,38 +44,35 @@ namespace BlackJack.Games{
 
         public void PlayerTurn(){
             StringBuilder currentHand = new StringBuilder();
+            List<Card> fishes = new List<Card>();
+            int answer = 0;
+            bool hasCard = false;
             foreach (Card card in playerHand){
                 currentHand.append(card.ToString())
                            .append(" ");
             }
-            int answer = 0;
             do{            
                 Console.WriteLine("Your hand: " + currentHand + "\nWhat rank do you want to ask for?");
                 bool x = Int32.TryParse(Console.ReadLine(),out answer);
-                List fishes = new List(Card);
                 if(x){
                     foreach(Card dCard in dealerHand){
-                        if(((int)dCard.rank == answer){
-                            Console.WriteLine("Dealer has a " + dCard.ToString());
+                        if((int)dCard.rank == answer){
+                            Console.WriteLine("Dealer has at least one " + answer);
                             fishes.Add(dCard);
-                        } else {
-                            Console.WriteLine("Dealer has no " + answer "s. Go Fish!");
-                            playerHand = GoFish(playerHand);
-                        }
+                            playerHand.Add(dCard);
+                            hasCard = true;
+                        } 
                     }
                     if(fishes.Count != 0){
-                        foreach(Card card in fishes){
-                            dealerHand.Remove(card);
-                            playerHand.Add(card);                            
-                        }
-                    } 
-                                            
-                //*Enter rest of game logic here*
-                //append new card(s) to currentHand when added
-                } else {
-                    Console.WriteLine("Invalid input.")
+                        dealerHand.Remove()
+                    }
+
                 }
-            } while(true);
+            } while(hasCard);
+            
+        }
+
+        private string TransferCards(int answer){
             
         }
 
