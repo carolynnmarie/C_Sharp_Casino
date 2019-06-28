@@ -43,36 +43,24 @@ namespace BlackJack.Games{
         }
 
         public void PlayerTurn(){
-            StringBuilder currentHand = new StringBuilder();
             List<Card> fishes = new List<Card>();
             int answer = 0;
             bool hasCard = false;
-            foreach (Card card in playerHand){
-                currentHand.append(card.ToString())
-                           .append(" ");
-            }
+            string currentHand = PrintHand(playerHand);
             do{            
                 Console.WriteLine("Your hand: " + currentHand + "\nWhat rank do you want to ask for?");
                 bool x = Int32.TryParse(Console.ReadLine(),out answer);
                 if(x){
-                    foreach(Card dCard in dealerHand){
-                        if((int)dCard.rank == answer){
-                            Console.WriteLine("Dealer has at least one " + answer);
-                            fishes.Add(dCard);
-                            playerHand.Add(dCard);
-                            hasCard = true;
-                        } 
-                    }
-                    if(fishes.Count != 0){
+                    fishes = FindCards(dealerHand, out hasCard);
+                    if(hasCard){
+                        Console.WriteLine("Dealer has " + fishes.Count + " " + answer + "s");
                         foreach(Card card in fishes){
-                            dealerHand.Remove();
+                            playerHand.Add(card);
+                            dealerHand.Remove(card);
                         }                       
-                    }
-                    if(!hasCard){                        
-                        playerHand = GoFish(playerHand);
-                        if((int)playerHand[playerHand.Count-1].rank == answer){
-                            hasCard = true;
-                        }
+                    } else {     
+                        Console.WriteLine("Dealer has no " + answer + "s. Go Fish!");
+                        playerHand = GoFish(playerHand, answer, out hasCard);                       
                     }
                 }
             } while(hasCard);
@@ -80,13 +68,51 @@ namespace BlackJack.Games{
         }
 
         public void DealerTurn(){
+            Random random = new Random();
+            bool hasCard = false;
+            do{
+                Card dealerPick = dealerHand[random.Next(dealerHand.Count)];
+                Console.WriteLine("Dealer wants to know if you have any " + (int)dealerPick.rank + "s.")
 
+            } while(hasCard);
+            
+        }
+
+        private List<Card> FindCards(List<Card> otherHand, out bool hasCard){
+            bool hasCard = false;
+            List<Card> fishes = new List<Card>();
+            foreach(Card card in otherHand){
+                if((int)card.rank == answer){
+                    fishes.Add(card);
+                    hasCard = true;
+                } 
+            }
+            return fishes;
         }
 
         
-        public List<Card> GoFish(List<Card> hand){
-        //enter logic
+        private List<Card> GoFish(List<Card> hand, int cardValue, out bool hasCard){
+            StringBuilder builder = new StringBuilder();
+            Card card = deck.DrawCard();
+            hand.Add(card); 
+            builder.Append("You drew a " + card.ToString() + "\n")
+            if((int)card.rank == cardValue){
+                builder.Append("You fished your wish! You get another turn.");
+                hasCard = true;
+            } else {
+                hasCard = false;
+            }
+            Console.WriteLine(builder.ToString());
             return hand;
+        }
+
+        public string PrintHand(List<Card> hand){
+            StringBuilder builder = new StringBuilder();
+            foreach(Card card in hand){
+                builder.Append(card.ToString())
+                        .Append(" ");
+            }
+            return builder.ToString();
         }
 
         private bool CheckSizes(){
