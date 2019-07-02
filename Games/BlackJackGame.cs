@@ -177,7 +177,7 @@ namespace BlackJack.Games{
               } else if (answer.Equals("n")) {
                   GoodBye();
               } else {
-                  Console.WriteLine("Invalid input")
+                  Console.WriteLine("Invalid input");
               }
             } while(!answer.Equals("y") && !answer.Equals("n"));
             

@@ -5,12 +5,12 @@ namespace BlackJack.Cards{
 
     public class Deck {
 
-        List<Card> cards {get;set;}
+        public List<Card> cards {get;set;}
 
         public Deck(){
             this.cards = new List<Card>();
             int[] ranks = {1,2,3,4,5,6,7,8,9,10,11,12,13};
-            int[] suits = {0,1,2,3};
+            int[] suits = {1,2,3,4};
             foreach(int rankValue in ranks){
                 Rank rank = (Rank) rankValue;
                 foreach(int suitValue in suits){
