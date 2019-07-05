@@ -37,7 +37,7 @@ namespace BlackJack.Cards{
         }
 
         public Card DrawCard(){
-            Card card = cards[cards.Count-1];
+            Card card = cards[0];
             cards.Remove(card);
             return card;
         }
@@ -45,7 +45,7 @@ namespace BlackJack.Cards{
         public List<Card> DealCards(int numDealt){
             List<Card> list = new List<Card>();
             for(int i = 0; i<numDealt; i++){
-                list.Add(cards[cards.Count-1-i]);
+                list.Add(cards[i]);
             }
             foreach(Card card in list){
                 cards.Remove(card);
@@ -88,9 +88,9 @@ namespace BlackJack.Cards{
             return string.Join(", ",deckString);
         }
 
-        // public int DeckSize(){
-        //     return this.cards.Size();
-        // }
+        public int DeckCount(){
+            return this.cards.Count;
+        }
 
         
         
