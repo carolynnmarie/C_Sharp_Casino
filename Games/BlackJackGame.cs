@@ -28,11 +28,18 @@ namespace BlackJack.Games{
             this.dealerHand = houseDeck.DealCards(2);
             Console.WriteLine("Welcome to BlackJack!");
             PlaceBet();
-            if(bet > 0){
+            if(bet >= 5){
                 Engine();
-            } else {
-                GoodBye();
-            }         
+            } else if (player.chips < 5){
+                End();
+            }
+        }
+
+        public void Engine(){
+            PlayerTurn();
+            DealerTurn();
+            DetermineWinner();
+            End();
         }
 
         public void PlaceBet(){  
@@ -42,8 +49,10 @@ namespace BlackJack.Games{
                     this.player.chips -= bet;
                 } else if (bet > player.chips && player.chips > 0) {
                     Console.WriteLine("Insufficient funds. Your total chip amount is " + player.chips);
+                    bet = 0;
                 } else if (player.chips == 0){
                     Console.WriteLine("Out of funds.");
+                    bet = 0;
                     break;
                 };
             } while(bet == 0);
@@ -51,7 +60,8 @@ namespace BlackJack.Games{
 
         private int GetBetAmount(){
             int answer = 0;
-            Console.WriteLine("Please enter the amount you would like to bet.  Minimum bet is 5 chips.");
+            Console.WriteLine("Your chip balance is " + player.chips + ".  Please enter the amount you would like to bet." +  
+            "\nMinimum bet is 5 chips.");
             do{
                 try{
                 answer = Convert.ToInt32(Console.ReadLine());
@@ -62,26 +72,23 @@ namespace BlackJack.Games{
             return answer;
         }
 
-        public void Engine(){
-            PlayerTurn();
-            DealerTurn();
-            DetermineWinner();
-            End();
-        }
-
         private void PlayerTurn(){
             int value = DetermineHandValue(playerHand);
-            StringBuilder builder = new StringBuilder();
             do{
-                builder.Append("Your cards are: ");
+                StringBuilder builder = new StringBuilder("Your cards are: ");
                 foreach(Card card in playerHand){
                     builder.Append(card.ToString())
                             .Append(" ");
                 }
                 builder.Append("for a total of ")
                         .Append(value)
-                        .Append(". Dealer's top card is " + dealerHand[0].ToString()+ ". ")
-                        .Append("Would you like to hit or stay?");
+                        .Append(". Dealer's top card is " + dealerHand[0].ToString()+ ". ");
+                if(value > 21){
+                    Console.WriteLine(builder.ToString() + "You Bust!");
+                    break;
+                } else {
+                    builder.Append("Would you like to hit or stay?");
+                }
                 Console.WriteLine(builder.ToString());
                 string answer = Console.ReadLine();
                 if(answer == "hit"){
@@ -174,17 +181,17 @@ namespace BlackJack.Games{
                 answer = Console.ReadLine();
                 if(answer.Equals("y")){
                     Start();
-              } else if (answer.Equals("n")) {
-                  GoodBye();
-              } else {
-                  Console.WriteLine("Invalid input");
-              }
+                    } else if (answer.Equals("n")) {
+                    GoodBye();
+                } else {
+                    Console.WriteLine("Invalid input");
+                }
             } while(!answer.Equals("y") && !answer.Equals("n"));
             
         }
 
         public void GoodBye(){
-            Console.WriteLine("Returning to Main Menu.");
+            Console.WriteLine("Thank you for playing BlackJack.  Returning to Main Menu.");
         }
     }
     

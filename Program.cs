@@ -12,9 +12,12 @@ namespace BlackJack{
             // deck.Shuffle();
             // Console.WriteLine(deck.PrintDeck());
             // Console.WriteLine("\uD83C\uDCA1");
-            Person me = new Person("Carolynn");
-            GoFishGame goFish = new GoFishGame(me);
-            goFish.Start();
+             Person me = new Person("Carolynn");
+             BlackJackGame blackJack = new BlackJackGame(me);
+             me.chips = 10;
+             blackJack.Start();
+            // GoFishGame goFish = new GoFishGame(me);
+            // goFish.Start();
         }
     }
 }
