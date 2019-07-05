@@ -8,10 +8,12 @@ namespace BlackJack.Games{
     
     public class War{
         
-        Person player {get; set; }
-        Deck deck {get; set; }
-        List<Card> playerCards {get; set; }
-        List<Card> dealerCards {get; set; }
+        Person player {get;set;}
+        Deck deck {get;set;}
+        List<Card> playerCards {get;set;}
+        List<Card> dealerCards {get;set;}
+        List<Card> playerTableCards {get;set;}
+        List<Card> dealerTableCards {get;set;}
 
         public War(Person player){
             player = player;
@@ -23,7 +25,15 @@ namespace BlackJack.Games{
 
         public void Engine(){}
 
-        public 
+        public int CompareCards(){
+            return 0;
+        }
+
+        public void IDeclareWar(){}
+
+        public int FindPileSize(){
+            return 0;
+        }
 
         public void End(){}
     }
