@@ -24,28 +24,42 @@ namespace BlackJack.Games{
             dealerTableCards = new List<Card>();
         }
 
+        
         public void Start(){
             DealHands();
-            Console.WriteLine("Welcome to War!")
+            Console.WriteLine("Welcome to War! Press any key to start");
             Engine();
         }
 
+        //not finished
         public void Engine(){
-            do{
-                Card pTopCard = playerDeck.DrawCard();
-                Card dTopCard = dealerDeck.DrawCard();
-                Console.WriteLine("Your card is " + pTopCard.ToString() + ".  Dealer's card is " + dTopCard.ToString());
-                int winner = CompareCards(pTopCard,dTopCard);
-                if(winner == 2){
-                    playerDeck.
-                }
+            while(!String.IsNullOrEmpty(Console.ReadLine())){
+                do{
+                    Card pTopCard = playerDeck.DrawCard();
+                    Card dTopCard = dealerDeck.DrawCard();
+                    Console.WriteLine("Your card is " + pTopCard.ToString() + ".  Dealer's card is " + dTopCard.ToString());
+                    int winner = CompareCards(pTopCard,dTopCard);
+                    if(winner == 2){
+                        playerDeck.AddCard(pTopCard);
+                        playerDeck.AddCard(dTopCard);
+                        Console.WriteLine("You won the round!")
+                    } else if (winner == 1){
+                        dealerDeck.AddCard(pTopCard);
+                        dealerDeck.AddCard(dTopCard);
+                        Console.WriteLine("Dealer won the round!")
+                    } else {
+                        IDeclareWar();
+                    }
             }while(CheckHandSizes());
+            }
+            
         }
 
         public int CompareCards(Card playerCard, Card dealerCard){
             return ((int)playerCard.rank > (int)dealerCard.rank)?2:((int)dealerCard.rank > (int)playerCard.rank)?1:0;            
         }
 
+        //not finished
         public void IDeclareWar(){
             int pileSize = FindWarPileSize();
 

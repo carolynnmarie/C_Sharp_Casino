@@ -72,6 +72,14 @@ namespace BlackJack.Cards{
             }
         }
 
+        public void AddCards(List<Card> addCards){
+            foreach(Card card in addCards){
+                if(!cards.Contains(card)){
+                    cards.Add(card);
+                }
+            }
+        }
+
         public bool ContainsCard(Card card){
             if(cards.Contains(card)){
                 return true;
