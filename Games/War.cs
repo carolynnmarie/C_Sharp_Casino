@@ -50,7 +50,7 @@ namespace BlackJack.Games{
                     } else {
                         IDeclareWar();
                     }
-            }while(CheckHandSizes());
+                }while(CheckDeckSizes());
             }
             
         }
@@ -59,9 +59,20 @@ namespace BlackJack.Games{
             return ((int)playerCard.rank > (int)dealerCard.rank)?2:((int)dealerCard.rank > (int)playerCard.rank)?1:0;            
         }
 
+        public bool CheckDeckSizes(){
+            return (playerDeck.DeckCount() == 0 || dealerDeck.DeckCount() == 0)?false:true;
+        }
+
         //not finished
         public void IDeclareWar(){
-            int pileSize = FindWarPileSize();
+            if(CheckDeckSizes()){
+                int pileSize = FindWarPileSize();
+                List<Card> pWarPile = playerDeck.DealCards(pileSize);
+                List<Card> dWarPile = dealerDeck.DealCards(pileSize);
+                
+            }
+            
+
 
 
         }
@@ -80,10 +91,6 @@ namespace BlackJack.Games{
                 pileCount = 3;
             }
             return pileCount;
-        }
-
-        public bool CheckHandSizes(){
-            return (playerDeck.DeckCount() == 0 || dealerDeck.DeckCount() == 0)?false : true;
         }
 
         public void End(){
