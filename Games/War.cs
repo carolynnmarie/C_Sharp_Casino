@@ -50,6 +50,7 @@ namespace BlackJack.Games{
                     } else {
                         IDeclareWar();
                     }
+                    Console.WriteLine("You now have " + playerDeck.DeckCount() + " cards");
                 }while(CheckDeckSizes());
             }
             
@@ -63,18 +64,30 @@ namespace BlackJack.Games{
             return (playerDeck.DeckCount() == 0 || dealerDeck.DeckCount() == 0)?false:true;
         }
 
-        //not finished
         public void IDeclareWar(){
-            if(CheckDeckSizes()){
+            int winner = 0;
+            List<Card> tablePile = new List<Card>();            
+            while(CheckDeckSizes() && winner == 0){
                 int pileSize = FindWarPileSize();
                 List<Card> pWarPile = playerDeck.DealCards(pileSize);
                 List<Card> dWarPile = dealerDeck.DealCards(pileSize);
-                
+                for(int i = 0; i< pWarPile.Count; i++){
+                    tablePile.Add(pWarPile[i]);
+                    tablePile.Add(dWarPile[i]);
+                }                               
+                winner = CompareCards(pWarPile[pWarPile.Count-1],dWarPile[dWarPile.Count-1]);
             }
-            
-
-
-
+            if(winner == 2){
+                playerDeck.AddCards(tablePile);
+            } else if (winner == 1) {
+                dealerDeck.AddCards(tablePile);
+            } else if(!CheckDeckSizes()){
+                if(playerDeck.DeckCount() == 0){
+                    Console.WriteLine("You are out of cards!")
+                } else {
+                    Console.WriteLine("Dealer is out of cards!")
+                }
+            }
         }
 
         public int FindWarPileSize(){
@@ -82,11 +95,7 @@ namespace BlackJack.Games{
             int dCount = dealerDeck.DeckCount();
             int pileCount = 0;
             if(pCount < 3 || dCount < 3){
-                if(pCount < dCount){
-                    pileCount = pCount;
-                } else {
-                    pileCount = dCount;
-                }
+                pileCount = (pCount<dCount)? pCount: dCount;
             } else {
                 pileCount = 3;
             }
