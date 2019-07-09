@@ -26,14 +26,15 @@ namespace BlackJack.Games{
 
         
         public void Start(){
-            DealHands();
-            Console.WriteLine("Welcome to War! Press any key to start");
+            Console.WriteLine("Welcome to War! Press any key to start.  Type exit to exit the game at any time.");
             Engine();
+            End();
         }
 
         //not finished
         public void Engine(){
-            while(!String.IsNullOrEmpty(Console.ReadLine())){
+            string next = Console.ReadLine();
+            while(next != "exit"){
                 do{
                     Card pTopCard = playerDeck.DrawCard();
                     Card dTopCard = dealerDeck.DrawCard();
@@ -42,16 +43,17 @@ namespace BlackJack.Games{
                     if(winner == 2){
                         playerDeck.AddCard(pTopCard);
                         playerDeck.AddCard(dTopCard);
-                        Console.WriteLine("You won the round!")
+                        Console.WriteLine("You won the round!");
                     } else if (winner == 1){
                         dealerDeck.AddCard(pTopCard);
                         dealerDeck.AddCard(dTopCard);
-                        Console.WriteLine("Dealer won the round!")
-                    } else {
-                        IDeclareWar();
+                        Console.WriteLine("Dealer won the round!");
+                    } else if (winner == 0) {                       
+                        IDeclareWar(pTopCard, dTopCard);
                     }
                     Console.WriteLine("You now have " + playerDeck.DeckCount() + " cards");
-                }while(CheckDeckSizes());
+                    next = Console.ReadLine();
+                }while(CheckDeckSizes() && next != "exit");
             }
             
         }
@@ -64,10 +66,13 @@ namespace BlackJack.Games{
             return (playerDeck.DeckCount() == 0 || dealerDeck.DeckCount() == 0)?false:true;
         }
 
-        public void IDeclareWar(){
+        public void IDeclareWar(Card pCard, Card dCard){
             int winner = 0;
-            List<Card> tablePile = new List<Card>();            
+            List<Card> tablePile = new List<Card>();
+            tablePile.Add(pCard);
+            tablePile.Add(dCard);            
             while(CheckDeckSizes() && winner == 0){
+                Console.WriteLine("I DECLARE WAR!");
                 int pileSize = FindWarPileSize();
                 List<Card> pWarPile = playerDeck.DealCards(pileSize);
                 List<Card> dWarPile = dealerDeck.DealCards(pileSize);
@@ -76,16 +81,20 @@ namespace BlackJack.Games{
                     tablePile.Add(dWarPile[i]);
                 }                               
                 winner = CompareCards(pWarPile[pWarPile.Count-1],dWarPile[dWarPile.Count-1]);
+                Console.WriteLine("Your top card is " + pWarPile[pWarPile.Count-1] + ". Dealer's top card is " 
+                    + dWarPile[dWarPile.Count-1]);
             }
             if(winner == 2){
                 playerDeck.AddCards(tablePile);
+                Console.WriteLine("You win the round!");
             } else if (winner == 1) {
+                Console.WriteLine("Dealer wins the round!");
                 dealerDeck.AddCards(tablePile);
             } else if(!CheckDeckSizes()){
                 if(playerDeck.DeckCount() == 0){
-                    Console.WriteLine("You are out of cards!")
+                    Console.WriteLine("You are out of cards!");
                 } else {
-                    Console.WriteLine("Dealer is out of cards!")
+                    Console.WriteLine("Dealer is out of cards!");
                 }
             }
         }
@@ -94,16 +103,16 @@ namespace BlackJack.Games{
             int pCount = playerDeck.DeckCount();
             int dCount = dealerDeck.DeckCount();
             int pileCount = 0;
-            if(pCount < 3 || dCount < 3){
+            if(pCount < 4 || dCount < 4){
                 pileCount = (pCount<dCount)? pCount: dCount;
             } else {
-                pileCount = 3;
+                pileCount = 4;
             }
             return pileCount;
         }
 
         public void End(){
-
+            Console.WriteLine("Thank you for playing War!");
         }
     }
 }
