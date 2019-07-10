@@ -9,7 +9,7 @@ namespace BlackJack.Games{
         public int bet {get;set;}
         public CrapsOdds crapsOdds {get;set;}
         public int throwTotal {get;set;}
-        //public string[] betTypes {get;set;}
+        public string[] betTypes {get;set;}
 
         public Craps(Person player){
             this.player = player;
@@ -17,7 +17,9 @@ namespace BlackJack.Games{
             this.bet = 5;
             this.crapsOdds = new CrapsOdds();
             this.throwTotal = 0;
-            //this.betTypes = 
+            this.betTypes = {"Pass Line", "Don't Pass Line", "Come", "Don't Come", "Pass Line Odds", "Don't Pass Line Odds", 
+                            "Come Odds", "Don't Come Odds", "Field","Place"};
+            
         }
     }
 }
