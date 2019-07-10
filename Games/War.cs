@@ -6,7 +6,7 @@ using BlackJack;
 
 namespace BlackJack.Games{
     
-    public class War{
+    public class War : CardGame {
         
         Person player {get;set;}
         Deck playerDeck {get;set;}
@@ -15,13 +15,13 @@ namespace BlackJack.Games{
         List<Card> dealerTableCards {get;set;}
 
         public War(Person player){
-            player = player;
+            this.player = player;
             Deck houseDeck = new Deck();
             houseDeck.Shuffle();
-            playerDeck = new Deck (houseDeck.DealCards(26));
-            dealerDeck = new Deck(houseDeck.cards);
-            playerTableCards = new List<Card>();
-            dealerTableCards = new List<Card>();
+            this.playerDeck = new Deck (houseDeck.DealCards(26));
+            this.dealerDeck = new Deck(houseDeck.cards);
+            this.playerTableCards = new List<Card>();
+            this.dealerTableCards = new List<Card>();
         }
 
         

@@ -6,7 +6,7 @@ using BlackJack;
 
 namespace BlackJack.Games{
 
-    public class GoFishGame{
+    public class GoFishGame : CardGame {
 
         public Person player {get;set;}
         public List<Card> playerHand {get;set;}

@@ -6,7 +6,7 @@ using BlackJack;
 
 namespace BlackJack.Games{
 
-    public class BlackJackGame {
+    public class BlackJackGame : CardGame {
 
         public Person player {get;set;}
         public Deck houseDeck {get;set;}
