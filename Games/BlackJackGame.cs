@@ -35,7 +35,7 @@ namespace BlackJack.Games{
             }
         }
 
-        public void Engine(){
+        public override void Engine(){
             PlayerTurn();
             DealerTurn();
             DetermineWinner();
@@ -170,7 +170,7 @@ namespace BlackJack.Games{
             Console.WriteLine(builder.ToString());
         }
 
-        public void End(){
+        public override void End(){
             houseDeck = new Deck();
             playerHand = new List<Card>();
             dealerHand = new List<Card>();

@@ -32,7 +32,7 @@ namespace BlackJack.Games{
             End();
         }
 
-        public void Engine(){
+        public override void Engine(){
             bool keepPlaying = true;
             Console.WriteLine("Welcome to Go Fish! Enter 1 for Ace, 11 for Jack, 12 for Queen, and 13 for King");
             do{
@@ -185,7 +185,7 @@ namespace BlackJack.Games{
             return true;
         }
 
-        public void End(){
+        public override void End(){
             Console.WriteLine("Thank you for playing Go Fish!");
         }
 

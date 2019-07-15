@@ -31,8 +31,8 @@ namespace BlackJack.Games{
             End();
         }
 
-        //not finished
-        public void Engine(){
+
+        public override void Engine(){
             string next = Console.ReadLine();
             while(next != "exit"){
                 do{
@@ -111,7 +111,7 @@ namespace BlackJack.Games{
             return pileCount;
         }
 
-        public void End(){
+        public override void End(){
             Console.WriteLine("Thank you for playing War!");
         }
     }
