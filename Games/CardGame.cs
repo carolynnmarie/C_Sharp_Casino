@@ -1,19 +1,19 @@
-using System;
+// using System;
 
-namespace BlackJack.Games{
+// namespace BlackJack.Games{
 
-    public class CardGame {
+//     public abstract class CardGame : Game {
 
-        public Person player {get;set;}
+//         // public Person player {get;set;}
 
-        public CardGame(Person player){
-            this.player = player;
-        }
+//         // public CardGame(Person player){
+//         //     this.player = player;
+//         // }
 
-        public abstract void Start();
+//         public abstract void Start();
 
-        public abstract void Engine();
+//         // public abstract void Engine();
 
-        public abstract void End();
-    }
-}
+//         // public abstract void End();
+//     }
+// }

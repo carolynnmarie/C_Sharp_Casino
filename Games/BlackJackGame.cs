@@ -6,7 +6,7 @@ using BlackJack;
 
 namespace BlackJack.Games{
 
-    public class BlackJackGame : CardGame {
+    public class BlackJackGame : Game {
 
         public Person player {get;set;}
         public Deck houseDeck {get;set;}
@@ -23,7 +23,7 @@ namespace BlackJack.Games{
             this.bet = 0;
         }
 
-        public void Start(){
+        public override void Start(){
             this.playerHand = houseDeck.DealCards(2);
             this.dealerHand = houseDeck.DealCards(2);
             Console.WriteLine("Welcome to BlackJack!");

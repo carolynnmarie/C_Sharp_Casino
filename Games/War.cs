@@ -6,7 +6,7 @@ using BlackJack;
 
 namespace BlackJack.Games{
     
-    public class War : CardGame {
+    public class War : Game {
         
         Person player {get;set;}
         Deck playerDeck {get;set;}
@@ -25,7 +25,7 @@ namespace BlackJack.Games{
         }
 
         
-        public void Start(){
+        public override void Start(){
             Console.WriteLine("Welcome to War! Press any key to start.  Type exit to exit the game at any time.");
             Engine();
             End();

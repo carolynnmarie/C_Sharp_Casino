@@ -15,6 +15,12 @@ namespace BlackJack {
             this.chips = 0;
             this.gameScores = new ScoreBoard();
         }
+        
+        public Person(){
+            this.name = "";
+            this.chips = 0;
+            this.gameScores = new ScoreBoard();
+        }
 
 
 

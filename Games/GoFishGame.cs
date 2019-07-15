@@ -6,7 +6,7 @@ using BlackJack;
 
 namespace BlackJack.Games{
 
-    public class GoFishGame : CardGame {
+    public class GoFishGame : Game {
 
         public Person player {get;set;}
         public List<Card> playerHand {get;set;}
@@ -24,7 +24,7 @@ namespace BlackJack.Games{
             this.dealerBooks = 0;
         }
 
-        public void Start(){
+        public override void Start(){
             deck.Shuffle();
             playerHand = deck.DealCards(7);
             dealerHand = deck.DealCards(7);
