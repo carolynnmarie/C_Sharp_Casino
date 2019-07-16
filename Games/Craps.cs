@@ -111,9 +111,79 @@ namespace BlackJack.Games{
             }
         }
 
-        public void ComeOutRoll(){
 
+        public void ComeOutRoll(){
+            RollDice();
+            int throwTotal = TotalDiceValue();
+            StringBuilder builder = new StringBuilder("Time to make your first roll! You rolled a " + throwTotal);
+            if(bets.ContainsKey("pass")){
+                if(throwTotal == 2 || throwTotal == 3){
+                    builder.Append(". You crapped out. ")
+                            .Append(PassLineResult(false));
+                } else if (throwTotal == 7 || throwTotal == 11){
+                    builder.Append(". You rolled a natural! ")
+                            .Append(PassLineResult(true));                   
+                } else if (throwTotal == 12){
+                    builder.Append(PassLineResult(false));
+                } else {
+                    builder.Append(". The point is now ")
+                            .Append(throwTotal + ".");
+                }
+            } else if(bets.ContainsKey("don't pass")){
+                if(throwTotal == 2 || throwTotal == 3){
+                    builder.Append(". You crapped out. ")
+                            .Append(DontPassLineResult(true));
+                } else if (throwTotal == 7 || throwTotal == 11){
+                    builder.Append(". You rolled a natural. ")
+                            .Append(DontPassLineResult(false));
+                } else if (throwTotal == 12){
+                    builder.Append(". Don't Pass bets are pushed to next round.");
+                } else {
+                    builder.Append(". The point is now ")
+                            .Append(throwTotal + ".");                    
+                }
+            }
         }
+
+        public void RollDice(){
+            for(int i = 0; i<2; i++){
+                Die die = new Die();
+                dice[i] = die.RollDie();
+            }
+        }
+
+        public int TotalDiceValue(){
+            int total = 0;
+            for(int i = 0; i<2; i++){
+                total += (int)dice[i];
+            }
+            return total;
+        }
+
+        private string PassLineResult(bool winLose){
+            string result = "";
+            if(winLose){
+                winLose = "Pass Line won!  You won " + bet["pass"] + " chips!";
+                player.chips += bet["pass"]*2;
+            } else {
+                winLose = "Pass Line lost. You lost your bet of " + bet["pass"] + " chips.";
+            }
+            bet.Remove("pass");
+            return win;
+        }
+
+        private string DontPassLineResult(bool winLose){
+            string result = "";
+            if(winLose){
+                result = "Don't Pass Line won!  You won " + bet["don't pass"] + " chips.";
+                player.chips += bet["don't pass"]*2;
+            } else {
+                result = "Don't Pass Line lost. You lost your bet of " + bet["don't pass"] + " chips."
+            }
+            bet.Remove("don't pass");
+            return result;
+        }
+
 
         public override void End(){
 
