@@ -9,8 +9,10 @@ namespace BlackJack{
 
         static void Main(string[] args){
              Person me = new Person("Carolynn");
-             MainMenu casino = new MainMenu();
-             casino.Welcome();
+             //MainMenu casino = new MainMenu();
+             //casino.Welcome();
+             Slots slots = new Slots(me);
+             slots.Start();
         }
     }
 }

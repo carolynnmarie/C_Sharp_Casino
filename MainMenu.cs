@@ -37,7 +37,7 @@ namespace BlackJack {
             Game game;
             string choice = "";
             do{
-                Console.WriteLine("What game would you like to play? BlackJack, Go Fish, or War?");
+                Console.WriteLine("What game would you like to play? BlackJack, Slots, Go Fish, or War?");
                 choice = Console.ReadLine().ToLower();
                 if(choice == "blackjack" || choice == "black jack"){
                     game = new BlackJackGame(player);
@@ -48,7 +48,7 @@ namespace BlackJack {
                 } else {
                     game = null;
                 }
-            } while(choice!="blackjack" && choice!="black jack" && choice!="go fish" && choice!="gofish" && choice !="war");
+            } while(choice!="blackjack" && choice!="black jack" && choice!="go fish" && choice!="gofish" && choice !="war" && choice!="slots");
             Console.WriteLine("Going to " + choice + "!");
             return game;
         }
