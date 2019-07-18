@@ -14,19 +14,19 @@ namespace BlackJack.Games{
         string[] betTypes {get;set;}
         Dictionary<string, int> bets {get;set;}  
         Dictionary<int, double> fieldPayout {get;set;}
-        Dictionary<string, int> points {get;set;}       
+        Dictionary<string, List<int>> points {get;set;}       
         Dictionary<int, double> placeWin {get;set;}
         Dictionary<int, double> placeLose {get;set;}
         Dictionary<int, double> passLineComePointOdds {get;set;}
         Dictionary<int, double> dontPassLineDontComePointOdds {get;set;}
-        Dictionary<string, Dictionary<int, double>> oddPayouts {get;set;} 
+
 
 
         public Craps(Person player){
             this.player = player;
             this.dice = new Die[2];
             this.throwTotal = 0;
-            this.points = new Dictionary;
+            this.points = new Dictionary<string, List<int>>();
             this.betTypes = new string[] {"Pass Line", "Don't Pass Line", "Come", "Don't Come", "Pass Line Odds", "Don't Pass Line Odds", 
                             "Come Point Odds", "Don't Come Point Odds", "Field","Place"};
             this.bets = new Dictionary<string, int>();
@@ -65,15 +65,7 @@ namespace BlackJack.Games{
             dontPassLineDontComePointOdds.Add(5, .66);
             dontPassLineDontComePointOdds.Add(9, .66);
             dontPassLineDontComePointOdds.Add(4, .5);
-            dontPassLineDontComePointOdds.Add(10, .5);
-
-            this.oddPayouts = new Dictionary<string, Dictionary<int,double>>();
-            oddPayouts.Add("place win", placeWin);
-            oddPayouts.Add("place lose", placeLose);
-            oddPayouts.Add("pass line odds", passLineComePointOdds);
-            oddPayouts.Add("don't pass line odds", dontPassLineDontComePointOdds);
-            oddPayouts.Add("come point odds", passLineComePointOdds);
-            oddPayouts.Add("don't come point odds", dontPassLineDontComePointOdds);                                                
+            dontPassLineDontComePointOdds.Add(10, .5);                                              
         }
 
         public override void Start(){
@@ -137,7 +129,9 @@ namespace BlackJack.Games{
                 } else {
                     builder.Append(". The point is now ")
                             .Append(throwTotal + ".");
-                    point = throwTotal;
+                    List<int> pointList = new List<int>();
+                    pointList.Add(throwTotal);
+                    points.Add("all",pointList);
                 }
             } else if(bets.ContainsKey("don't pass")){
                 if(throwTotal == 2 || throwTotal == 3){
@@ -150,8 +144,10 @@ namespace BlackJack.Games{
                     builder.Append(". Don't Pass bets are pushed to next round.");
                 } else {
                     builder.Append(". The point is now ")
-                            .Append(throwTotal + ".");   
-                    points.Add("all",throwTotal);
+                            .Append(throwTotal + "."); 
+                    List<int> pList = new List<int>();
+                    pList.Add(throwTotal);  
+                    points.Add("all",pList);
                     
                 }
             }
@@ -186,8 +182,7 @@ namespace BlackJack.Games{
 
 
         public void PhaseTwoResultsHandler(){
-            StringBuilder builder = new StringBuilder();
-            
+            StringBuilder builder = new StringBuilder();            
             if(bets.ContainsKey("come")){
                 builder.Append(ComeBetResult())
                         .Append("\n");
@@ -259,6 +254,7 @@ namespace BlackJack.Games{
             return result;
         }
 
+        //not finished -need to refactor point as list of points
         public string ComeBetResult(){
             string result = "";
             if(throwTotal == 7 || throwTotal == 11){
@@ -274,6 +270,7 @@ namespace BlackJack.Games{
             return result;
         }
 
+        //not finished - need to refactor point as list of points
         public string DontComeBetResult(){
             string result = "";
             if(throwTotal == 7 || throwTotal == 11){
