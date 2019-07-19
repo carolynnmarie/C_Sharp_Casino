@@ -11,15 +11,6 @@ namespace BlackJack.Games{
             this.player = player;
             this.fruits = new string[]{"\uD83C\uDF52", "\uD83C\uDF4E", "\uD83C\uDF47", "\uD83C\uDF4B", "\uD83C\uDF4C", "\uD83C\uDF49", 
                                     "\uD83C\uDF4A", "\u3374", "7"};
-            // fruits.Add("\uD83C\uDF52", 7);
-            // fruits.Add("\uD83C\uDF4E", 7);
-            // fruits.Add("\uD83C\uDF47", 7);
-            // fruits.Add("\uD83C\uDF4B", 7);
-            // fruits.Add("\uD83C\uDF4C", 7);
-            // fruits.Add("\uD83C\uDF49", 7);
-            // fruits.Add("\uD83C\uDF4A", 7);
-            // fruits.Add("\u3374", 10);
-            // fruits.Add("7", 15);
         }
 
         public override void Start(){

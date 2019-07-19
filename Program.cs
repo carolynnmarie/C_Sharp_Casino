@@ -11,8 +11,10 @@ namespace BlackJack{
              Person me = new Person("Carolynn");
              //MainMenu casino = new MainMenu();
              //casino.Welcome();
-             Slots slots = new Slots(me);
-             slots.Start();
+             //Slots slots = new Slots(me);
+             //slots.Start();
+             Craps craps = new Craps(me);
+             craps.Start();
         }
     }
 }
