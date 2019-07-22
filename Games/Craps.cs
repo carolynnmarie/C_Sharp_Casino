@@ -83,20 +83,20 @@ namespace BlackJack.Games{
             do{
                 PhaseTwoRoll();
                 Console.WriteLine("Would you like to roll again? yes or no");               
-            } while (Console.ReadLine() != "no");
+            } while (Console.ReadLine().ToLower() == "yes");
         }
 
         public void PlaceFirstBet(){
             Console.WriteLine("First, you must place your initial bet on the Pass Line or the Don't Pass Line. " + 
             "To place a Pass Line bet, type 'pass'. To place a Don't Pass Line bet, type 'don't pass'.");
             if(Console.ReadLine().ToLower()== "pass"){
-                bets.Add("pass", MakeBet());
+                MakeBet("pass");
             } else {
-                bets.Add("don't pass", MakeBet());
+                MakeBet("don't pass");
             }
         }
 
-        public int MakeBet(){
+        public void MakeBet(string betType){
             int answer = 0;            
             do{
                 Console.WriteLine("How much would you like to bet?");
@@ -111,7 +111,7 @@ namespace BlackJack.Games{
                 }
             } while (answer == 0 || answer > player.chips);
             player.chips -= answer;
-            return answer;
+            bets.Add(betType,answer);
         }
 
         public void ComeOutRoll(){
@@ -120,33 +120,32 @@ namespace BlackJack.Games{
             StringBuilder builder = new StringBuilder("Time to make your first roll! You rolled a " + throwTotal);
             if(bets.ContainsKey("pass")){
                 bool x = PassLineRoll();
-                if(!x) {
-                    builder.Append(". The point is now ")
-                            .Append(throwTotal + ".");
-                    points.Add("all",throwTotal);
-                }
+                ComeOutRollPoint(x);
             } else if(bets.ContainsKey("don't pass")){
                 bool y = DontPassLineRoll();
-                if(!y) {
-                    builder.Append(". The point is now ")
-                            .Append(throwTotal + "."); 
-                    points.Add("all",throwTotal);
-                    
-                }
+                ComeOutRollPoint(y);
             }
             Console.WriteLine(builder.ToString());
         }
 
-        //incomplete
+        public void ComeOutRollPoint(bool x){
+            if(!x) {
+                builder.Append(". The point is now ")
+                          .Append(throwTotal + ".");
+                points.Add("all",throwTotal);
+            }
+        }
+
         public void PhaseTwoRoll(){
-            GetPhaseTwoBetType();
+            string type = GetPhaseTwoBetType();
+            MakePhaseTwoBet(type);
             RollDice();
             int throwTotal = TotalDiceValue();
             Console.WriteLine("You rolled a " + throwTotal);
             PhaseTwoResultsHandler();
         }
         
-        public void GetPhaseTwoBetType(){
+        public string GetPhaseTwoBetType(){
             string[] betTypesArray = {"pass","don't pass","come","don't come","field","place","pass odds","come point odds",
                                     "don't come point odds"};
             List<string> betTypes = new List<string>(betTypesArray);
@@ -156,36 +155,29 @@ namespace BlackJack.Games{
                 "place, pass odds, don't pass odds, come point odds, or don't come point odds?");
                 answer = Console.ReadLine().ToLower();
             } while (!betTypes.Contains(answer));
-            FilterPhaseTwoBet(answer);
+            return answer;
         }
 
-        private void FilterPhaseTwoBet(string answer){
+        private void MakePhaseTwoBet(string answer){
             if(answer == "field"){
                 Console.WriteLine("What number would you like to put your field bet on? 2, 3, 4, 9, 10, 11, or 12?");
                 int x;
                 Int32.TryParse(Console.ReadLine(), out x);
                 fieldNumb = x;
-                MakePhaseTwoBet(answer);
+                MakeBet(answer);
             } else if(answer == "place"){
                 Console.WriteLine("What number would you like to put your place bet on? 4, 5, 6, 8, 9, or 10?");
                 int y;
                 Int32.TryParse(Console.ReadLine(), out y);
                 placeNumb = y;
-                MakePhaseTwoBet(answer);
+                MakeBet(answer);
             } else if(answer == "come point odds"){
                 MakeComePointsOddsBet();
             } else if(answer == "don't come points odds" && dontComePointBets.Count == 0){
                 MakeDontComePointsOddsBet();
             } else {
-                MakePhaseTwoBet(answer);
+                MakeBet(answer);
             }
-        }
-
-        private void MakePhaseTwoBet(string answer){
-            Console.WriteLine("How much would you like to bet?");
-            int betAmnt = 0;
-            Int32.TryParse(Console.ReadLine(),out betAmnt);
-            bets.Add(answer,betAmnt);
         }
 
         private void MakeComePointOddsBet(){
@@ -231,30 +223,29 @@ namespace BlackJack.Games{
             if(bets.ContainsKey("pass odds"))
                 builder.Append(PassLineOddsResult()).Append("\n");            
             if(bets.ContainsKey("don't pass odds"))
-                builder.Append(DontPassLineOddsResult()).Append("\n");            
-            if(bets.ContainsKey("come point odds"))
-                builder.Append(ComePointOddsResult()).Append("\n");            
-            if(bets.ContainsKey("don't come point odds"))
-                builder.Append(DontComePointOddsResult()).Append("\n");           
+                builder.Append(DontPassLineOddsResult()).Append("\n");
             if(bets.ContainsKey("place"))
-                builder.Append(PlaceResult()).Append("\n");                            
+                builder.Append(PlaceResult()).Append("\n");            
+            if(comePointBets.Count >0)
+                builder.Append(ComePointOddsResult()).Append("\n");            
+            if(dontComePointBets.Count >0)
+                builder.Append(DontComePointOddsResult()).Append("\n");                                       
             Console.WriteLine(builder.ToString());
         }
 
         private bool PassLineRoll(){
-            bool x = false;
+            bool x = true;
             StringBuilder builder = new StringBuilder();
             if(throwTotal == 2 || throwTotal == 3){
                 builder.Append(". You crapped out. ")
-                         .Append(PassLineResult(false));
-                 x = true;
+                        .Append(PassLineResult(false));
               } else if (throwTotal == 7 || throwTotal == 11){
-                  builder.Append(". You rolled a natural! ")
-                           .Append(PassLineResult(true)); 
-                x = true;                  
+                builder.Append(". You rolled a natural! ")
+                        .Append(PassLineResult(true));           
              } else if (throwTotal == 12){
-                  builder.Append(PassLineResult(false));
-              x = true;
+                builder.Append(PassLineResult(false));
+            } else {
+                x = false;
             }
             Console.WriteLine(builder.ToString());
             return x;
@@ -273,19 +264,18 @@ namespace BlackJack.Games{
         }
 
         private bool DontPassLineRoll(){
-            bool x = false;
+            bool x = true;
             StringBuilder builder = new StringBuilder();
             if(throwTotal == 2 || throwTotal == 3){
                 builder.Append(". You crapped out. ")
                         .Append(DontPassLineResult(true));
-                x = true;
             } else if (throwTotal == 7 || throwTotal == 11){
                 builder.Append(". You rolled a natural. ")
                         .Append(DontPassLineResult(false));
-                x = true;
             } else if (throwTotal == 12){
                 builder.Append(". Don't Pass bets are pushed to next round.");
-                x = true;
+            } else {
+                x = false;
             }
             Console.WriteLine(builder.ToString());
             return x;
@@ -336,7 +326,6 @@ namespace BlackJack.Games{
             return result;
         }
 
-
         public string PassLineOddsResult(){
             string results = "";
             if(throwTotal == points["all"]){
@@ -371,6 +360,42 @@ namespace BlackJack.Games{
                 bets.Remove("don't pass odds");
             }
             return results;
+        }
+
+
+        public string PlaceResult(){
+            string placeRes = "";
+            int pChips = 0;
+            if(throwTotal == 7){
+                placeRes = "You lose your place bet!";
+                bets.Remove("place");
+                placeNumb = 0;
+            } else if (throwTotal == placeNumb){
+                foreach(KeyValuePair<int,double> pair in fieldPayout){
+                    if(throwTotal == pair.Key){
+                        pChips += (int)Math.Round(bets["place"]*pair.Value);
+                    }
+                }
+                placeRes = "Your place bet on " + placeNumb + " wins! You win " + pChips + " chips!";
+                player.chips += pChips + bets["place"];
+                bets.Remove("place");
+                placeNumb = 0;
+            }
+            return placeRes;
+        }
+
+        public string FieldResult(){
+            string fieldRes = "";
+            foreach(KeyValuePair<int,double> pair in fieldPayout){
+                if(throwTotal == pair.Key){
+                    int fieldChips = (int)Math.Round(bets["field"]*pair.Value);
+                    fieldRes = "Your field bet on " + fieldNumb + " of " + bets["field"] + "won " + fieldChips;
+                    player.chips += (bets["field"] + fieldChips);
+                }
+            }
+            bets.Remove("field");
+            fieldNumb = 0;
+            return fieldRes;
         }
 
         public string ComePointOddsResult(){
@@ -421,39 +446,6 @@ namespace BlackJack.Games{
                 }
             }
             return result;
-        }
-
-        public string PlaceResult(){
-            string placeRes = "";
-            int pChips = 0;
-            if(throwTotal == 7){
-                placeRes = "You lose your place bet!";
-                bets.Remove("place");
-            } else if (throwTotal == placeNumb){
-                foreach(KeyValuePair<int,double> pair in fieldPayout){
-                    if(throwTotal == pair.Key){
-                        pChips += (int)Math.Round(bets["place"]*pair.Value);
-                    }
-                }
-                placeRes = "Your place bet on " + placeNumb + " wins! You win " + pChips + " chips!";
-                player.chips += pChips + bets["place"];
-                bets.Remove("place");
-            }
-            return placeRes;
-        }
-
-        public string FieldResult(){
-            string fieldRes = "";
-            foreach(KeyValuePair<int,double> pair in fieldPayout){
-                if(throwTotal == pair.Key){
-                    int fieldChips = (int)Math.Round(bets["field"]*pair.Value);
-                    fieldRes = "Your field bet on " + fieldNumb + " of " + bets["field"] + "won " + fieldChips;
-                    player.chips += (bets["field"] + fieldChips);
-                }
-            }
-            bets.Remove("field");
-            fieldNumb = 0;
-            return fieldRes;
         }
 
         public void RollDice(){
