@@ -120,9 +120,9 @@ namespace BlackJack.Games{
             Console.WriteLine("You have " + player.chips + "chips.")
             if(answer == "field"){
                 Console.WriteLine("What number would you like to put your field bet on? 2, 3, 4, 9, 10, 11, or 12?");
-                int x;
-                Int32.TryParse(Console.ReadLine(), out x);
-                fieldPlaceNumbers.Add("field",x);
+                int fieldNumber;
+                Int32.TryParse(Console.ReadLine(), out fieldNumber);
+                fieldPlaceNumbers.Add("field", fieldNumber);
                 MakeBet(answer);
             } else if(answer == "place to win"){
                 GetPlaceNumber("place to win");
@@ -392,21 +392,21 @@ namespace BlackJack.Games{
 
         public string ComePointOddsResult(){
             string result = "";
-            int chips = 0;
+            int chips2 = 0;
             if (throwTotal == 7){
                 result += "Your come point odds bet lost.";
                 foreach(KeyValuePair<int,int> pair in comePointBets){
-                    chips += pair.Value;
+                    chips2 += pair.Value;
                 }
-                result += "You lost " + chips + " chips";
+                result += "You lost " + chips2 + " chips";
                 comePointBets.Clear();
             } else {
                 foreach(KeyValuePair<int,double> pair in passComePntOddsPayout){
                     if(comePointBets.ContainsKey(throwTotal)){
                         if(comePointBets[throwTotal] !=0){
-                            chips = (int)Math.Round(pair.Value*comePointBets[throwTotal]);
-                            result += "Your come point odds bet on " + comePointBets[throwTotal] + " won " + chips + " chips!";
-                            player.chips += chips + bets["come point odds"];
+                            chips2 = (int)Math.Round(pair.Value*comePointBets[throwTotal]);
+                            result += "Your come point odds bet on " + comePointBets[throwTotal] + " won " + chips2 + " chips!";
+                            player.chips += chips2 + bets["come point odds"];
                             comePointBets.Remove(throwTotal);
                         }                        
                     } 

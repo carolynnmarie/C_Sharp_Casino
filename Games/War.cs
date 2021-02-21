@@ -88,8 +88,8 @@ namespace BlackJack.Games{
                 playerDeck.AddCards(tablePile);
                 Console.WriteLine("You win the round!");
             } else if (winner == 1) {
-                Console.WriteLine("Dealer wins the round!");
                 dealerDeck.AddCards(tablePile);
+                Console.WriteLine("Dealer wins the round!");
             } else if(!CheckDeckSizes()){
                 if(playerDeck.DeckCount() == 0){
                     Console.WriteLine("You are out of cards!");
@@ -112,7 +112,14 @@ namespace BlackJack.Games{
         }
 
         public override void End(){
-            Console.WriteLine("Thank you for playing War!");
+            Console.WriteLine("Thank you for playing!  Would you like to play again? Type y for yes or anything else for no");
+            string answer = Console.ReadLine();
+            if(answer == "y"){
+                start();
+            } else { 
+                Console.WriteLine("GoodBye!");
+            }
+            
         }
     }
 }

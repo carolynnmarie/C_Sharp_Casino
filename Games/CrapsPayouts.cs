@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BlackJack.Games{
 
-    public class CrapsPayouts{
+    public struct CrapsPayouts{
 
         public Dictionary<int, double> fieldPayout {get;set;}
         public Dictionary<int, double> placeWin {get;set;}
