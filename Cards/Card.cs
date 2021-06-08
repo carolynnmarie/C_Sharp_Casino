@@ -2,7 +2,7 @@ using System;
 
 namespace BlackJack.Cards{
 
-    public struct Card{
+    public class Card{
 
         public Rank rank {get;set;}
         public Suit suit {get;set;}

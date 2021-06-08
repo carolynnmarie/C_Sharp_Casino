@@ -42,7 +42,7 @@ namespace BlackJack.Games{
             End();
         }
 
-        public void PlaceBet(){  
+        public void MakeBet(){  
             do{
                 bet = GetBetAmount(); 
                 if(bet <= player.chips){

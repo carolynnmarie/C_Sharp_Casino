@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "eU1K7PEoYnRte2MOPkkGd+cDdwgbO+EB26Ax2b/A9vVqcFZrCdx2EbVXwCNxRCUmeLdFsU2iq5ruktw1KKRDpQ==",
+  "dgSpecHash": "Liq+kkWm4oLh0cHYIfg+gQIGGZHh4BSVDpbVq4mm+Ku/MkFDUrpO4JQhdfuWlqDEdrlpOxS4PYLcMDFEuNBC7Q==",
   "success": true,
-  "projectFilePath": "/Users/carolynn/dev/finished-projects/C-Sharp/BlackJack/BlackJack.csproj",
+  "projectFilePath": "/Users/carolynn/dev/Current_Projects/C_Sharp_Current_Projects/BlackJack/BlackJack.csproj",
   "expectedPackageFiles": [
     "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/microsoft.netcore.app/2.2.0/microsoft.netcore.app.2.2.0.nupkg.sha512",
     "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/microsoft.netcore.dotnetapphost/2.2.0/microsoft.netcore.dotnetapphost.2.2.0.nupkg.sha512",

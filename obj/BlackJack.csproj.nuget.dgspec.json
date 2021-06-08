@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/carolynn/dev/finished-projects/C-Sharp/BlackJack/BlackJack.csproj": {}
+    "/Users/carolynn/dev/Current_Projects/C_Sharp_Current_Projects/BlackJack/BlackJack.csproj": {}
   },
   "projects": {
-    "/Users/carolynn/dev/finished-projects/C-Sharp/BlackJack/BlackJack.csproj": {
+    "/Users/carolynn/dev/Current_Projects/C_Sharp_Current_Projects/BlackJack/BlackJack.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/carolynn/dev/finished-projects/C-Sharp/BlackJack/BlackJack.csproj",
+        "projectUniqueName": "/Users/carolynn/dev/Current_Projects/C_Sharp_Current_Projects/BlackJack/BlackJack.csproj",
         "projectName": "BlackJack",
-        "projectPath": "/Users/carolynn/dev/finished-projects/C-Sharp/BlackJack/BlackJack.csproj",
+        "projectPath": "/Users/carolynn/dev/Current_Projects/C_Sharp_Current_Projects/BlackJack/BlackJack.csproj",
         "packagesPath": "/Users/carolynn/.nuget/packages/",
-        "outputPath": "/Users/carolynn/dev/finished-projects/C-Sharp/BlackJack/obj/",
+        "outputPath": "/Users/carolynn/dev/Current_Projects/C_Sharp_Current_Projects/BlackJack/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
